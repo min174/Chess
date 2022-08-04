@@ -23,6 +23,8 @@ public class Main {
 
         System.out.println("Choose a piece");
         input = scanner.nextLine().toCharArray();
-        printboard.selection(board, input, 0);
+        while(!move.selection(board, input, 0)){
+            input = scanner.nextLine().toCharArray();
+        }
     }
 }
