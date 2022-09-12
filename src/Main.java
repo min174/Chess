@@ -21,10 +21,21 @@ public class Main {
 
         printboard.print(board);
 
-        System.out.println("Choose a piece");
-        input = scanner.nextLine().toCharArray();
-        while(!move.selection(board, input, 0)){
+        while(true) {
+            System.out.println("White, choose a piece");
             input = scanner.nextLine().toCharArray();
+            while(!move.selection(board, input, 0)){
+                input = scanner.nextLine().toCharArray();
+            }
+            printboard.print(board);
+
+
+            System.out.println("Black, choose a piece");
+            input = scanner.nextLine().toCharArray();
+            while(!move.selection(board, input, 1)){
+                input = scanner.nextLine().toCharArray();
+            }
+            printboard.print(board);
         }
     }
 }

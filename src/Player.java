@@ -7,9 +7,9 @@ public class Player {
         Scanner s = new Scanner(System.in);
 
         System.out.println("\n~~~Please enter the names of the players~~~");
-        System.out.println("Player 1 (Black): ");
+        System.out.println("Player 1 (White): ");
         p1 = s.next();
-        System.out.println("\nPlayer 2 (White): ");
+        System.out.println("\nPlayer 2 (Black): ");
         p2 = s.next();
     }
 }
