@@ -106,4 +106,93 @@ public class move {
         }
         return true;
     }
+
+    public static boolean isValid(int board[][], int i, int j, char move[], int player, int piece){
+        if(move.length!=2){
+            System.out.println("***** You must input 2 chars! Please try again! *****");
+            return false;
+        }
+    
+        boolean valid = false;
+        int x, y, a=move[0], b=move[1];
+        y=a-97; //converting move chars to board index
+        x=7-(b-49);
+    
+        if(a<97 || a>104 || b<49 || b>56){ //if input is not [a-h][1-8]
+            System.out.println("***** This is not a valid board space! Please try again! *****");
+            return false;
+        }
+    
+        //pawn//////////////////////////////////////////////////////////////////////////////////////////////////////////
+        if(piece==1 && player==0){ //if white chose a pawn
+            if(j==y && x==(i-1)){ //if it is being moved one space forward
+                if(board[x][y]==0){ //if the space is free
+                    board[x][y]=1;
+                    board[i][j]=0;
+                    valid=true;
+                }
+            }
+            if(i==6 && j==y && x==(i-2)){ //if the pawn hasn't been moved yet and is being moved 2 spaces forward
+                if(board[x][y]==0 && board[x+1][y]==0){ //if both spaces in front of it are free
+                    board[x][y]=1;
+                    board[i][j]=0;
+                    valid =true;
+                }
+            }
+            if((y==(j-1) || y==(j+1)) && x==(i-1)){ //if moving up-left or up-right
+                if(board[x][y]>10){ //if space has a black piece
+                    board[x][y]=1;
+                    board[i][j]=0;
+                    valid=true;
+                }
+            }
+        }
+        if(piece==1 && player==1){ //if black chose a pawn
+            if(j==y && x==(i+1)){ //if it is being moved one space down
+                if(board[x][y]==0){ //if the space is free
+                    board[x][y]=11;
+                    board[i][j]=0;
+                    valid=true;
+                }
+            }
+            if(i==1 && j==y && x==(i+2)){ //if the pawn hasn't been moved yet and is being moved 2 spaces forward
+                if(board[x][y]==0 && board[x-1][y]==0){ //if both spaces in front of it are free
+                    board[x][y]=11;
+                    board[i][j]=0;
+                    valid=true;
+                }
+            }
+            if((y==(j-1) || y==(j+1)) && x==(i+1)){ //if moving up-left or up-right
+                if(board[x][y]<10){ //if space has a white piece
+                    board[x][y]=11;
+                    board[i][j]=0;
+                    valid=true;
+                }
+            }
+        }
+    
+        //knight////////////////////////////////////////////////////////////////////////////////////////////////////////
+        if(piece==2){
+            if(( (x==(i-2) || x==(i+2)) && (y==(j-1) || y==(j+1)) ) || ((x==(i-1) || x==(i+1)) && (y==(j-2) || y==(j+2)))){
+                if(player==0){
+                    if(board[x][y]==0 || board[x][y]>10){
+                        board[x][y]=2;
+                        board[i][j]=0;
+                        valid=true;
+                    }
+                }
+                if(player==1){
+                    if(board[x][y]==0 || board[x][y]<10){
+                        board[x][y]=12;
+                        board[i][j]=0;
+                        valid=true;
+                    }
+                }
+            }
+        }
+        if(!valid){
+            System.out.println("***** Not a valid move! Please try again! *****");
+        }
+        return valid;
+    }
 }
