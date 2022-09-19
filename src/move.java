@@ -190,6 +190,300 @@ public class move {
                 }
             }
         }
+
+        //bishop////////////////////////////////////////////////////////////////////////////////////////////////////////
+        if(piece==3){
+            a=i;
+            b=j;
+            while(true){
+                if(x<i && y<j){
+                    if(a==0 || b==0){
+                        break;
+                    }
+                    a--;
+                    b--;
+                }
+                if(x<i && y>j){
+                    if(a==0 || b==7){
+                        break;
+                    }
+                    a--;
+                    b++;
+                }
+                if(x>i && y<j){
+                    if(a==7 || b==0){
+                        break;
+                    }
+                    a++;
+                    b--;
+                }
+                if(x>i && y>j){
+                    if(a==7 || b==7){
+                        break;
+                    }
+                    a++;
+                    b++;
+                }
+
+                if(board[a][b]==0){
+                    if(a==x && b==y){
+                        board[x][y]=3;
+                        if(player==1){
+                            board[x][y]+=10;
+                        }
+                        board[i][j]=0;
+                        valid=true;
+                        break;
+                    }
+                    continue;
+                }
+                if(board[a][b]<10 && player==0){
+                    break;
+                }
+                if(board[a][b]>10 && player==1){
+                    break;
+                }
+                if(board[a][b]<10 && player==1){
+                    if(a==x && b==y){
+                        board[x][y]=13;
+                        board[i][j]=0;
+                        valid=true;
+                    }
+                    break;
+                }
+                if(board[a][b]>10 && player==0){
+                    if(a==x && b==y){
+                        board[x][y]=3;
+                        board[i][j]=0;
+                        valid=true;
+                    }
+                    break;
+                }
+            }
+        }
+
+        //rook//////////////////////////////////////////////////////////////////////////////////////////////////////////
+        if(piece==4){
+            a=i;
+            b=j;
+            while(true){
+                if(x<i && y==j){
+                    if(a==0){
+                        break;
+                    }
+                    a--;
+                }
+                if(x>i && y==j){
+                    if(a==7){
+                        break;
+                    }
+                    a++;
+                }
+                if(x==i && y<j){
+                    if(b==0){
+                        break;
+                    }
+                    b--;
+                }
+                if(x==i && y>j){
+                    if(b==7){
+                        break;
+                    }
+                    b++;
+                }
+
+                if(board[a][b]==0){
+                    if(a==x && b==y){
+                        board[x][y]=4;
+                        if(player==1){
+                            board[x][y]+=10;
+                        }
+                        board[i][j]=0;
+                        valid=true;
+                        break;
+                    }
+                    continue;
+                }
+                if(board[a][b]<10 && player==0){
+                    break;
+                }
+                if(board[a][b]>10 && player==1){
+                    break;
+                }
+                if(board[a][b]<10 && player==1){
+                    if(a==x && b==y){
+                        board[x][y]=14;
+                        board[i][j]=0;
+                        valid=true;
+                    }
+                    break;
+                }
+                if(board[a][b]>10 && player==0){
+                    if(a==x && b==y){
+                        board[x][y]=4;
+                        board[i][j]=0;
+                        valid=true;
+                    }
+                    break;
+                }
+            }
+        }
+
+        //queen//////////////////////////////////////////////////////////////////////////////////////////////////////////
+        if(piece==5){
+            a=i;
+            b=j;
+            if(x==i || y==j){
+                while(true){
+                    if(x<i && y==j){
+                        if(a==0){
+                            break;
+                        }
+                        a--;
+                    }
+                    if(x>i && y==j){
+                        if(a==7){
+                            break;
+                        }
+                        a++;
+                    }
+                    if(x==i && y<j){
+                        if(b==0){
+                            break;
+                        }
+                        b--;
+                    }
+                    if(x==i && y>j){
+                        if(b==7){
+                            break;
+                        }
+                        b++;
+                    }
+
+                    if(board[a][b]==0){
+                        if(a==x && b==y){
+                            board[x][y]=5;
+                            if(player==1){
+                                board[x][y]+=10;
+                            }
+                            board[i][j]=0;
+                            valid=true;
+                            break;
+                        }
+                        continue;
+                    }
+                    if(board[a][b]<10 && player==0){
+                        break;
+                    }
+                    if(board[a][b]>10 && player==1){
+                        break;
+                    }
+                    if(board[a][b]<10 && player==1){
+                        if(a==x && b==y){
+                            board[x][y]=15;
+                            board[i][j]=0;
+                            valid=true;
+                        }
+                        break;
+                    }
+                    if(board[a][b]>10 && player==0){
+                        if(a==x && b==y){
+                            board[x][y]=5;
+                            board[i][j]=0;
+                            valid=true;
+                        }
+                        break;
+                    }
+                }
+            } else{
+                while(true){
+                    if(x<i && y<j){
+                        if(a==0 || b==0){
+                            break;
+                        }
+                        a--;
+                        b--;
+                    }
+                    if(x<i && y>j){
+                        if(a==0 || b==7){
+                            break;
+                        }
+                        a--;
+                        b++;
+                    }
+                    if(x>i && y<j){
+                        if(a==7 || b==0){
+                            break;
+                        }
+                        a++;
+                        b--;
+                    }
+                    if(x>i && y>j){
+                        if(a==7 || b==7){
+                            break;
+                        }
+                        a++;
+                        b++;
+                    }
+
+                    if(board[a][b]==0){
+                        if(a==x && b==y){
+                            board[x][y]=5;
+                            if(player==1){
+                                board[x][y]+=10;
+                            }
+                            board[i][j]=0;
+                            valid=true;
+                            break;
+                        }
+                        continue;
+                    }
+                    if(board[a][b]<10 && player==0){
+                        break;
+                    }
+                    if(board[a][b]>10 && player==1){
+                        break;
+                    }
+                    if(board[a][b]<10 && player==1){
+                        if(a==x && b==y){
+                            board[x][y]=15;
+                            board[i][j]=0;
+                            valid=true;
+                        }
+                        break;
+                    }
+                    if(board[a][b]>10 && player==0){
+                        if(a==x && b==y){
+                            board[x][y]=5;
+                            board[i][j]=0;
+                            valid=true;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        //king//////////////////////////////////////////////////////////////////////////////////////////////////////////
+        if(piece==6){
+            if( (x==(i-1) || x==(i+1) || x==i) && (y==(j-1) || y==(j+1) || y==j) && !(x==i && y==j) ){
+                if(player==0){
+                    if(board[x][y]==0 || board[x][y]>10){
+                        board[x][y]=6;
+                        board[i][j]=0;
+                        valid=true;
+                    }
+                }
+                if(player==1){
+                    if(board[x][y]==0 || board[x][y]<10){
+                        board[x][y]=16;
+                        board[i][j]=0;
+                        valid=true;
+                    }
+                }
+            }
+        }
+        
         if(!valid){
             System.out.println("***** Not a valid move! Please try again! *****");
         }
