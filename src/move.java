@@ -466,19 +466,61 @@ public class move {
 
         //king//////////////////////////////////////////////////////////////////////////////////////////////////////////
         if(piece==6){
+            if(player == 0 && i == 7 && j == 4) { //castling rules
+                if(x == 7 && y == 6 && board[7][5] == 0 && board[7][6] == 0 && board[7][7] == 4) {
+                    board[7][4] = 0;
+                    board[7][5] = 4;
+                    board[7][6] = 6;
+                    board[7][7] = 0;
+                    return true;
+                }
+                if(x == 7 && y == 2 && board[7][3] == 0 && board[7][2] == 0 && board[7][1] == 0 && board[7][0] == 4) {
+                    board[7][0] = 0;
+                    board[7][2] = 6;
+                    board[7][3] = 4;
+                    board[7][4] = 0;
+                    return true;
+                }
+            }
+            if(player == 1 && i == 0 && j == 4) {
+                if(x == 0 && y == 6 && board[0][5] == 0 && board[0][6] == 0 && board[0][7] == 14) {
+                    board[0][4] = 0;
+                    board[0][5] = 14;
+                    board[0][6] = 16;
+                    board[0][7] = 0;
+                    return true;
+                }
+                if(x == 0 && y == 2 && board[0][3] == 0 && board[0][2] == 0 && board[0][1] == 0 && board[0][0] == 14) {
+                    board[0][0] = 0;
+                    board[0][2] = 16;
+                    board[0][3] = 14;
+                    board[0][4] = 0;
+                    return true;
+                }
+            }
             if( (x==(i-1) || x==(i+1) || x==i) && (y==(j-1) || y==(j+1) || y==j) && !(x==i && y==j) ){
                 if(player==0){
                     if(board[x][y]==0 || board[x][y]>10){
-                        board[x][y]=6;
-                        board[i][j]=0;
-                        valid=true;
+                        if(attacked(board, x, y, 0)){
+                            System.out.println("***** You cannot move your king into check *****");
+                            return false;
+                        } else{
+                            board[x][y]=6;
+                            board[i][j]=0;
+                            valid=true;
+                        }
                     }
                 }
                 if(player==1){
                     if(board[x][y]==0 || board[x][y]<10){
-                        board[x][y]=16;
-                        board[i][j]=0;
-                        valid=true;
+                        if(attacked(board, x, y, 1)){
+                            System.out.println("***** You cannot move your king into check *****");
+                            return false;
+                        } else{
+                            board[x][y]=16;
+                            board[i][j]=0;
+                            valid=true;
+                        }
                     }
                 }
             }
@@ -488,5 +530,197 @@ public class move {
             System.out.println("***** Not a valid move! Please try again! *****");
         }
         return valid;
+    }
+
+    public static boolean attacked(int board[][], int i, int j, int player){
+        int a, b;
+
+        if(i > 0){ //if the spot above [i][j] is an enemy king, [i][j] is attacked
+            if((player == 0 && board[i-1][j] == 16) || (player == 1 && board[i-1][j] == 6)){
+                return true;
+            }
+        }
+        if(i < 7){ //if the spot below [i][j] is an enemy king, [i][j] is attacked
+            if((player == 0 && board[i+1][j] == 16) || (player == 1 && board[i+1][j] == 6)){
+                return true;
+            }
+        }
+        if(j > 0){ //left
+            if((player == 0 && board[i][j-1] == 16) || (player == 1 && board[i][j-1] == 6)){
+                return true;
+            }
+        }
+        if(j < 7){ //right
+            if((player == 0 && board[i][j+1] == 16) || (player == 1 && board[i][j+1] == 6)){
+                return true;
+            }
+        }
+        if(i > 0 && j > 0){ //above and to the left is enemy king, or, if player is white, a black pawn
+            if((player == 0 && (board[i-1][j-1] == 16 || board[i-1][j-1] == 11)) || (player == 1 && board[i-1][j-1] == 6)){
+                return true;
+            }
+        }
+        if(i > 0 && j < 7){ //above and to the right is king or pawn
+            if((player == 0 && (board[i-1][j+1] == 16 || board[i-1][j+1] == 11)) || (player == 1 && board[i-1][j+1] == 6)){
+                return true;
+            }
+        }
+        if(i < 7 && j > 0){ //down and to the left, pawn if player is black
+            if((player == 0 && board[i+1][j-1] == 16) || (player == 1 && (board[i+1][j-1] == 6 || board[i+1][j-1] == 1))){
+                return true;
+            }
+        }
+        if(i < 7 && j < 7){ //down and to the right
+            if((player == 0 && board[i+1][j+1] == 16) || (player == 1 && (board[i+1][j+1] == 6 || board[i+1][j+1] == 1))){
+                return true;
+            }
+        }
+        //knight detection
+        if(i > 1 && j > 0){ //up left
+            if((player == 0 && board[i-2][j-1] == 12) || (player == 1 && board[i-2][j-1] == 2)){
+                return true;
+            }
+        }
+        if(i > 1 && j < 7){ //up right
+            if((player == 0 && board[i-2][j+1] == 12) || (player == 1 && board[i-2][j+1] == 2)){
+                return true;
+            }
+        }
+        if(i > 0 && j < 6){ //right up
+            if((player == 0 && board[i-1][j+2] == 12) || (player == 1 && board[i-1][j+2] == 2)){
+                return true;
+            }
+        }
+        if(i > 0 && j > 1){ //left up
+            if((player == 0 && board[i-1][j-2] == 12) || (player == 1 && board[i-1][j-2] == 2)){
+                return true;
+            }
+        }
+        if(i < 7 && j < 6){ //right down
+            if((player == 0 && board[i+1][j+2] == 12) || (player == 1 && board[i+1][j+2] == 2)){
+                return true;
+            }
+        }
+        if(i < 7 && j > 1){ //left down
+            if((player == 0 && board[i+1][j-2] == 12) || (player == 1 && board[i+1][j-2] == 2)){
+                return true;
+            }
+        }
+        if(i < 6 && j > 0){ //down left
+            if((player == 0 && board[i+2][j-1] == 12) || (player == 1 && board[i+2][j-1] == 2)){
+                return true;
+            }
+        }
+        if(i < 6 && j < 7){ //down right
+            if((player == 0 && board[i+2][j+1] == 12) || (player == 1 && board[i+2][j+1] == 2)){
+                return true;
+            }
+        }
+
+        for(int k=0; k<4; k++){ //different k values are cases for the 4 directions
+            a=i;
+            b=j;
+            while(true){
+                if(k == 0){ //go one square up until the top row is hit
+                    if(a == 0){
+                        break;
+                    }
+                    a--;
+                }
+                if(k == 1){ //go one square down until the bottom row is hit
+                    if(a == 7){
+                        break;
+                    }
+                    a++;
+                }
+                if(k == 2){ //go one square left until the leftmost column is hit
+                    if(b == 0){
+                        break;
+                    }
+                    b--;
+                }
+                if(k == 3){ //go one square right until the rightmost column is hit
+                    if(b == 7){
+                        break;
+                    }
+                    b++;
+                }
+
+                if(board[a][b] == 0){ //if the square is blank check the next one
+                    continue;
+                }
+                if(board[a][b] == 1 || board[a][b] == 11 || board[a][b] == 2 || board[a][b] == 12 || board[a][b] == 3 || board[a][b] == 13 || board[a][b] == 6 || board[a][b] == 16){
+                    break; //if the square has a pawn, knight, bishop, or king, break (king won't be on adjacent square as that was checked for at the beginning)
+                }
+                if(player == 0 && board[a][b] < 10){ //if the square has a friendly piece on it, break
+                    break;
+                }
+                if(player == 1 && board[a][b] > 10){
+                    break;
+                }
+                if(player == 0 && (board[a][b] == 14 || board[a][b] == 15)){ //if the square has an enemy rook or queen on it, the square being checked is attacked
+                    return true;
+                }
+                if(player == 1 && (board[a][b] == 4 || board[a][b] == 5)){
+                    return true;
+                }
+            }
+        }
+
+        //do another version of the above loop for diagonal movement
+        for(int k=0; k<4; k++){
+            a=i;
+            b=j;
+            while(true){
+                if(k == 0){
+                    if(a == 0 || b == 0){
+                        break;
+                    }
+                    a--;
+                    b--;
+                }
+                if(k == 1){
+                    if(a == 0 || b == 7){
+                        break;
+                    }
+                    a--;
+                    b++;
+                }
+                if(k == 2){
+                    if(a == 7 || b == 0){
+                        break;
+                    }
+                    a++;
+                    b--;
+                }
+                if(k == 3){
+                    if(a == 7 || b == 7){
+                        break;
+                    }
+                    a++;
+                    b++;
+                }
+
+                if(board[a][b] == 0){ //if the square is blank check the next one
+                    continue;
+                }
+                if(board[a][b] == 1 || board[a][b] == 11 || board[a][b] == 2 || board[a][b] == 12 || board[a][b] == 4 || board[a][b] == 14 || board[a][b] == 6 || board[a][b] == 16){
+                    break; //if the square has a pawn, knight, rook, or king, break
+                }
+                if(player == 0 && board[a][b] < 10){ //if the square has a friendly piece on it, break
+                    break;
+                }
+                if(player == 1 && board[a][b] > 10){
+                    break;
+                }
+                if(player == 0 && (board[a][b] == 13 || board[a][b] == 15)){ //if the square has an enemy bishop or queen on it, the square being checked is attacked
+                    return true;
+                }
+                if(player == 1 && (board[a][b] == 3 || board[a][b] == 5)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
