@@ -18,57 +18,60 @@ public class move {
             System.out.println("Not valid board space, try again");
             return false;
         }
+        int check = check(board, player);
 
         boolean valid=false;
-        if(board[i][j] == 1 && player == 0) { //white pawn
-            System.out.println("pawn selected");
-            piece=1;
-            valid=true;
-        }
-        if(board[i][j] == 11 && player == 1) { //black pawn
-            System.out.println("pawn selected");
-            piece=1;
-            valid=true;
-        }
-        if(board[i][j] == 2 && player == 0) { //white knight
-            System.out.println("knight selected");
-            piece=2;
-            valid=true;
-        }
-        if(board[i][j] == 12 && player == 1) { //black knight
-            System.out.println("knight selected");
-            piece=2;
-            valid=true;
-        }
-        if(board[i][j] == 3 && player == 0) { //white bishop
-            System.out.println("bishop selected");
-            piece=3;
-            valid=true;
-        }
-        if(board[i][j] == 13 && player == 1) { //black bishop
-            System.out.println("bishop selected");
-            piece=3;
-            valid=true;
-        }
-        if(board[i][j] == 4 && player == 0) { //white rook
-            System.out.println("rook selected");
-            piece=4;
-            valid=true;
-        }
-        if(board[i][j] == 14 && player == 1) { //black rook
-            System.out.println("rook selected");
-            piece=4;
-            valid=true;
-        }
-        if(board[i][j] == 5 && player == 0) { //white queen
-            System.out.println("queen selected");
-            piece=5;
-            valid=true;
-        }
-        if(board[i][j] == 15 && player == 1) { //black queen
-            System.out.println("queen selected");
-            piece=5;
-            valid=true;
+        if(check == 0) {
+            if(board[i][j] == 1 && player == 0) { //white pawn
+                System.out.println("pawn selected");
+                piece=1;
+                valid=true;
+            }
+            if(board[i][j] == 11 && player == 1) { //black pawn
+                System.out.println("pawn selected");
+                piece=1;
+                valid=true;
+            }
+            if(board[i][j] == 2 && player == 0) { //white knight
+                System.out.println("knight selected");
+                piece=2;
+                valid=true;
+            }
+            if(board[i][j] == 12 && player == 1) { //black knight
+                System.out.println("knight selected");
+                piece=2;
+                valid=true;
+            }
+            if(board[i][j] == 3 && player == 0) { //white bishop
+                System.out.println("bishop selected");
+                piece=3;
+                valid=true;
+            }
+            if(board[i][j] == 13 && player == 1) { //black bishop
+                System.out.println("bishop selected");
+                piece=3;
+                valid=true;
+            }
+            if(board[i][j] == 4 && player == 0) { //white rook
+                System.out.println("rook selected");
+                piece=4;
+                valid=true;
+            }
+            if(board[i][j] == 14 && player == 1) { //black rook
+                System.out.println("rook selected");
+                piece=4;
+                valid=true;
+            }
+            if(board[i][j] == 5 && player == 0) { //white queen
+                System.out.println("queen selected");
+                piece=5;
+                valid=true;
+            }
+            if(board[i][j] == 15 && player == 1) { //black queen
+                System.out.println("queen selected");
+                piece=5;
+                valid=true;
+            }
         }
         if(board[i][j] == 6 && player == 0) { //white king
             System.out.println("king selected");
@@ -80,8 +83,13 @@ public class move {
             piece=6;
             valid=true;
         }
+
         if(!valid){
-            System.out.println("No piece selected, try again");
+            if(check == 0) {
+                System.out.println("No piece selected, try again");
+            } else {
+                System.out.println("Your king is in check, you must move it");
+            }
             return false;
         }
         if(valid){
@@ -722,5 +730,115 @@ public class move {
             }
         }
         return false;
+    }
+
+    public static int check(int board[][], int player) { //return 0 means no check, 1 is check and 2 is checkamte
+        boolean canMove = false;
+        for(int i=0;i<8;i++) {
+            for(int j=0;j<8;j++) { //scans whole board until that players king is found
+                if((player == 0 && board[i][j] == 6) || (player == 1 && board[i][j] == 16)) {
+                    if(attacked(board, i, j, player)) { //if the king is attacked
+                        board[i][j] = 0; //takes king off board to check if any of the 8 surrounding squares can be moved to
+                        if(i > 0){
+                            if((player == 0 && board[i-1][j] > 10) || (player == 1 && board[i-1][j] < 10) || board[i-1][j] == 0){
+                                if(!attacked(board, i-1, j, player)) {
+                                    canMove = true;
+                                }
+                            }
+                        }
+                        if(i < 7){
+                            if((player == 0 && board[i+1][j] > 10) || (player == 1 && board[i+1][j] < 10) || board[i+1][j] == 0){
+                                if(!attacked(board, i+1, j, player)) {
+                                    canMove = true;
+                                }
+                            }
+                        }
+                        if(j > 0){
+                            if((player == 0 && board[i][j-1] > 10) || (player == 1 && board[i][j-1] < 10) || board[i][j-1] == 0){
+                                if(!attacked(board, i, j-1, player)) {
+                                    canMove = true;
+                                }
+                            }
+                        }
+                        if(j < 7){
+                            if((player == 0 && board[i][j+1] > 10) || (player == 1 && board[i][j+1] < 10) || board[i][j+1] == 0){
+                                if(!attacked(board, i, j+1, player)) {
+                                    canMove = true;
+                                }
+                            }
+                        }
+                        if(i > 0 && j > 0){
+                            if((player == 0 && board[i-1][j-1] > 10) || (player == 1 && board[i-1][j-1] < 10) || board[i-1][j-1] == 0){
+                                if(!attacked(board, i-1, j-1, player)) {
+                                    canMove = true;
+                                }
+                            }
+                        }
+                        if(i > 0 && j < 7){
+                            if((player == 0 && board[i-1][j+1] > 10) || (player == 1 && board[i-1][j+1] < 10) || board[i-1][j+1] == 0){
+                                if(!attacked(board, i-1, j+1, player)) {
+                                    canMove = true;
+                                }
+                            }
+                        }
+                        if(i < 7 && j > 0){
+                            if((player == 0 && board[i+1][j-1] > 10) || (player == 1 && board[i+1][j-1] < 10) || board[i+1][j-1] == 0){
+                                if(!attacked(board, i+1, j-1, player)) {
+                                    canMove = true;
+                                }
+                            }
+                        }
+                        if(i < 7 && j < 7){
+                            if((player == 0 && board[i+1][j+1] > 10) || (player == 1 && board[i+1][j+1] < 10) || board[i+1][j+1] == 0){
+                                if(!attacked(board, i+1, j+1, player)) {
+                                    canMove = true;
+                                }
+                            }
+                        }
+                        if(player == 0) { //put back the right colour king
+                            board[i][j] = 6;
+                        }
+                        if(player == 1) {
+                            board[i][j] = 16;
+                        }
+                        if(canMove) {
+                            return 1; //check
+                        } else {
+                            return 2; //checkmate
+                        }
+                    } else {
+                        return 0; //no check
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+
+    public static void promotion(int board[][], int player) {
+        for(int j=0; j<8; j++) {
+            if((player == 0 && board[0][j] == 1) || (player == 1 && board[7][j] == 11)) {
+                System.out.println("Please enter a number to promote your pawn\n1-Knight  2-Bishop  3-Rook  4-Queen");
+                Scanner scanner = new Scanner(System.in);
+                int input=0;
+                while(true) {
+                    input = scanner.nextInt();
+                    if(input < 1 || input > 4) {
+                        System.out.println("please enter a number from 1 to 4");
+                    } else {
+                        break;
+                    }
+                }
+                input++;
+                if(player == 0) {
+                    board[0][j] = input;
+                }
+                if(player == 1) {
+                    input += 10;
+                    board[7][j] = input;
+                }
+                return;
+            }
+        }
     }
 }

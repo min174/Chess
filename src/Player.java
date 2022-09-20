@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Player {
-    String p1, p2;
+    static String p1, p2;
 
     void start(){
         Scanner s = new Scanner(System.in);
