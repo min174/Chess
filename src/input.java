@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class input {
     static char[] input;
 
-    public static int[] choosepiece() { //takes char array and converts it to board position
+    public static int[] choosePiece() { //takes char array and converts it to board position
         Scanner scanner = new Scanner(System.in);
 
         while(true) {

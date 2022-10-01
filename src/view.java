@@ -1,5 +1,25 @@
 public class view {
-    public static void board(){
+
+    public static void welcome() {
+        System.out.println("###############\n#####CHESS#####\n###############\n");
+        System.out.println("\n~~~Please enter the names of the players~~~");
+
+    }
+    public static void checkmate(int player) {
+        if(player == 0) {
+            System.out.println("Checkmate! " + Player.p2 + " wins!");
+        } else {
+            System.out.println("Checkmate! " + Player.p1 + " wins!");
+        }
+    }
+    public static void choosePiece(int player) {
+        if(player == 0) {
+            System.out.println(Player.p1 + ", choose a piece");
+        } else {
+            System.out.println(Player.p2 + ", choose a piece");
+        }
+    }
+    public static void board() {
         int i, j;
         System.out.println("  ----- ----- ----- ----- ----- ----- ----- -----");
         for(i=0;i<8;i++) {
