@@ -1,24 +1,21 @@
 import java.util.Scanner;
 
 public class move {
-    public static boolean selection(int board[][], char input[], int player){
-        if(input.length != 2){
-            System.out.println("Input not 2 chars, try again");
-            return false;
-        }
+    static int[][] board = {{14, 12, 13, 15, 16, 13, 12, 14},
+                            {11, 11, 11, 11, 11, 11, 11, 11},
+                            { 0,  0,  0,  0,  0,  0,  0,  0},
+                            { 0,  0,  0,  0,  0,  0,  0,  0},
+                            { 0,  0,  0,  0,  0,  0,  0,  0},
+                            { 0,  0,  0,  0,  0,  0,  0,  0},
+                            { 1,  1,  1,  1,  1,  1,  1,  1},
+                            { 4,  2,  3,  5,  6,  3,  2,  4}};
 
+    public static boolean selection(int input[], int player){
         Scanner scanner = new Scanner(System.in);
-
         char[] move;
-        int i, j, a=input[0], b=input[1], piece=0;
-        j=a-97; //converting input chars to board index
-        i=7-(b-49);
+        int i=input[0], j=input[1], piece=0;
 
-        if(a<97 || a>104 || b<49 || b>56) { //if input is not [a-h][1-8]
-            System.out.println("Not valid board space, try again");
-            return false;
-        }
-        int check = check(board, player);
+        int check = check(player);
 
         boolean valid=false;
         if(check == 0) {
@@ -101,7 +98,7 @@ public class move {
                     return false;
                 }
             }
-            while(!isValid(board, i, j, move, player, piece)){
+            while(!isValid(i, j, move, player, piece)){
                 move = scanner.nextLine().toCharArray();
                 if(move.length > 0){
                     if(move[0] == 'p'){
@@ -115,7 +112,7 @@ public class move {
         return true;
     }
 
-    public static boolean isValid(int board[][], int i, int j, char move[], int player, int piece){
+    public static boolean isValid(int i, int j, char move[], int player, int piece){
         if(move.length!=2){
             System.out.println("***** You must input 2 chars! Please try again! *****");
             return false;
@@ -509,7 +506,7 @@ public class move {
             if( (x==(i-1) || x==(i+1) || x==i) && (y==(j-1) || y==(j+1) || y==j) && !(x==i && y==j) ){
                 if(player==0){
                     if(board[x][y]==0 || board[x][y]>10){
-                        if(attacked(board, x, y, 0)){
+                        if(attacked(x, y, 0)){
                             System.out.println("***** You cannot move your king into check *****");
                             return false;
                         } else{
@@ -521,7 +518,7 @@ public class move {
                 }
                 if(player==1){
                     if(board[x][y]==0 || board[x][y]<10){
-                        if(attacked(board, x, y, 1)){
+                        if(attacked(x, y, 1)){
                             System.out.println("***** You cannot move your king into check *****");
                             return false;
                         } else{
@@ -540,7 +537,7 @@ public class move {
         return valid;
     }
 
-    public static boolean attacked(int board[][], int i, int j, int player){
+    public static boolean attacked(int i, int j, int player){
         int a, b;
 
         if(i > 0){ //if the spot above [i][j] is an enemy king, [i][j] is attacked
@@ -732,65 +729,65 @@ public class move {
         return false;
     }
 
-    public static int check(int board[][], int player) { //return 0 means no check, 1 is check and 2 is checkamte
+    public static int check(int player) { //return 0 means no check, 1 is check and 2 is checkamte
         boolean canMove = false;
         for(int i=0;i<8;i++) {
             for(int j=0;j<8;j++) { //scans whole board until that players king is found
                 if((player == 0 && board[i][j] == 6) || (player == 1 && board[i][j] == 16)) {
-                    if(attacked(board, i, j, player)) { //if the king is attacked
+                    if(attacked(i, j, player)) { //if the king is attacked
                         board[i][j] = 0; //takes king off board to check if any of the 8 surrounding squares can be moved to
                         if(i > 0){
                             if((player == 0 && board[i-1][j] > 10) || (player == 1 && board[i-1][j] < 10) || board[i-1][j] == 0){
-                                if(!attacked(board, i-1, j, player)) {
+                                if(!attacked(i-1, j, player)) {
                                     canMove = true;
                                 }
                             }
                         }
                         if(i < 7){
                             if((player == 0 && board[i+1][j] > 10) || (player == 1 && board[i+1][j] < 10) || board[i+1][j] == 0){
-                                if(!attacked(board, i+1, j, player)) {
+                                if(!attacked(i+1, j, player)) {
                                     canMove = true;
                                 }
                             }
                         }
                         if(j > 0){
                             if((player == 0 && board[i][j-1] > 10) || (player == 1 && board[i][j-1] < 10) || board[i][j-1] == 0){
-                                if(!attacked(board, i, j-1, player)) {
+                                if(!attacked(i, j-1, player)) {
                                     canMove = true;
                                 }
                             }
                         }
                         if(j < 7){
                             if((player == 0 && board[i][j+1] > 10) || (player == 1 && board[i][j+1] < 10) || board[i][j+1] == 0){
-                                if(!attacked(board, i, j+1, player)) {
+                                if(!attacked(i, j+1, player)) {
                                     canMove = true;
                                 }
                             }
                         }
                         if(i > 0 && j > 0){
                             if((player == 0 && board[i-1][j-1] > 10) || (player == 1 && board[i-1][j-1] < 10) || board[i-1][j-1] == 0){
-                                if(!attacked(board, i-1, j-1, player)) {
+                                if(!attacked(i-1, j-1, player)) {
                                     canMove = true;
                                 }
                             }
                         }
                         if(i > 0 && j < 7){
                             if((player == 0 && board[i-1][j+1] > 10) || (player == 1 && board[i-1][j+1] < 10) || board[i-1][j+1] == 0){
-                                if(!attacked(board, i-1, j+1, player)) {
+                                if(!attacked(i-1, j+1, player)) {
                                     canMove = true;
                                 }
                             }
                         }
                         if(i < 7 && j > 0){
                             if((player == 0 && board[i+1][j-1] > 10) || (player == 1 && board[i+1][j-1] < 10) || board[i+1][j-1] == 0){
-                                if(!attacked(board, i+1, j-1, player)) {
+                                if(!attacked(i+1, j-1, player)) {
                                     canMove = true;
                                 }
                             }
                         }
                         if(i < 7 && j < 7){
                             if((player == 0 && board[i+1][j+1] > 10) || (player == 1 && board[i+1][j+1] < 10) || board[i+1][j+1] == 0){
-                                if(!attacked(board, i+1, j+1, player)) {
+                                if(!attacked(i+1, j+1, player)) {
                                     canMove = true;
                                 }
                             }
@@ -815,7 +812,7 @@ public class move {
         return 0;
     }
 
-    public static void promotion(int board[][], int player) {
+    public static void promotion(int player) {
         for(int j=0; j<8; j++) {
             if((player == 0 && board[0][j] == 1) || (player == 1 && board[7][j] == 11)) {
                 System.out.println("Please enter a number to promote your pawn\n1-Knight  2-Bishop  3-Rook  4-Queen");
