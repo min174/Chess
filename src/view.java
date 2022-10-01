@@ -1,5 +1,24 @@
 public class view {
-
+    public static void moveIntoCheck() {
+        System.out.println("You cannot move your king into check");
+    }
+    public static void invalidMove() {
+        System.out.println("Move not valid");
+    }
+    public static void noPieceSelected() {
+        if(move.check(move.player) == 0) {
+            System.out.println("No piece selected, try again");
+        } else {
+            System.out.println("Your king is in check, you must move it");
+        }
+    }
+    public static void pieceSelected() {
+        String[] pieces = {"pawn", "knight", "bishop", "rook", "queen", "king"};
+        System.out.println(pieces[move.piece-1] + " selected");
+    }
+    public static void movePiece() {
+        System.out.println("Move piece, or press p to pick a new piece");
+    }
     public static void welcome() {
         System.out.println("###############\n#####CHESS#####\n###############\n");
         System.out.println("\n~~~Please enter the names of the players~~~");
