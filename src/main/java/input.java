@@ -1,5 +1,4 @@
-package main;
-
+package main.java;
 import java.util.Scanner;
 
 public class input {
@@ -17,7 +16,7 @@ public class input {
                 System.out.println("Input not 2 chars, try again");
                 continue;
             }
-            if(input[0]<97 || input[0]>104 || input[1]<49 || input[1]>56) { //if main.input is not [a-h][1-8]
+            if(input[0]<97 || input[0]>104 || input[1]<49 || input[1]>56) { //if input is not [a-h][1-8]
                 System.out.println("Not valid board space, try again");
                 continue;
             }

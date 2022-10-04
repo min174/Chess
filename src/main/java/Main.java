@@ -1,6 +1,4 @@
-package main;
-
-import main.input;
+package main.java;
 
 public class Main {
     public static void main(String[] args)
@@ -38,9 +36,9 @@ public class Main {
                         passed = true;
                         break;
                     }
-                    if(move.isValid(piecePos, movePos) == 1) { //if main.move is valid
+                    if(move.isValid(piecePos, movePos) == 1) { //if move is valid
                         break;
-                    } else if(move.isValid(piecePos, movePos) == 0) { //if main.move is invalid
+                    } else if(move.isValid(piecePos, movePos) == 0) { //if move is invalid
                         view.invalidMove();
                     } else {
                         view.moveIntoCheck(); //if king was being moved into check
