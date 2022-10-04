@@ -1,6 +1,11 @@
+package main;
+
+import main.Player;
+import main.move;
+
 public class view {
     public static void moveIntoCheck() {
-        System.out.println("You cannot move your king into check");
+        System.out.println("You cannot main.move your king into check");
     }
     public static void invalidMove() {
         System.out.println("Move not valid");
@@ -9,7 +14,7 @@ public class view {
         if(move.check(move.player) == 0) {
             System.out.println("No piece selected, try again");
         } else {
-            System.out.println("Your king is in check, you must move it");
+            System.out.println("Your king is in check, you must main.move it");
         }
     }
     public static void pieceSelected() {

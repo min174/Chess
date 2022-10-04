@@ -1,6 +1,10 @@
-public class Main {
+package main;
 
-    public static void main(String[] args) {
+import main.input;
+
+public class Main {
+    public static void main(String[] args)
+    {
         view.welcome();
         Player p = new Player();
         p.start();
@@ -34,9 +38,9 @@ public class Main {
                         passed = true;
                         break;
                     }
-                    if(move.isValid(piecePos, movePos) == 1) { //if move is valid
+                    if(move.isValid(piecePos, movePos) == 1) { //if main.move is valid
                         break;
-                    } else if(move.isValid(piecePos, movePos) == 0) { //if move is invalid
+                    } else if(move.isValid(piecePos, movePos) == 0) { //if main.move is invalid
                         view.invalidMove();
                     } else {
                         view.moveIntoCheck(); //if king was being moved into check

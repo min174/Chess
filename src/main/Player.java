@@ -1,3 +1,5 @@
+package main;
+
 import java.util.Scanner;
 
 public class Player {
@@ -6,9 +8,9 @@ public class Player {
     void start(){
         Scanner s = new Scanner(System.in);
 
-        System.out.println("Player 1 (White): ");
+        System.out.println("main.Player 1 (White): ");
         p1 = s.next();
-        System.out.println("\nPlayer 2 (Black): ");
+        System.out.println("\nmain.Player 2 (Black): ");
         p2 = s.next();
     }
 }
