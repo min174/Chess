@@ -5,13 +5,13 @@ public class move {
     static int piece;
     static int player;
     static int[][] board = {{14, 12, 13, 15, 16, 13, 12, 14},
-                            {11, 11, 11, 11, 11, 11, 11, 11},
-                            { 0,  0,  0,  0,  0,  0,  0,  0},
-                            { 0,  0,  0,  0,  0,  0,  0,  0},
-                            { 0,  0,  0,  0,  0,  0,  0,  0},
-                            { 0,  0,  0,  0,  0,  0,  0,  0},
-                            { 1,  1,  1,  1,  1,  1,  1,  1},
-                            { 4,  2,  3,  5,  6,  3,  2,  4}};
+            {11, 11, 11, 11, 11, 11, 11, 11},
+            { 0,  0,  0,  0,  0,  0,  0,  0},
+            { 0,  0,  0,  0,  0,  0,  0,  0},
+            { 0,  0,  0,  0,  0,  0,  0,  0},
+            { 0,  0,  0,  0,  0,  0,  0,  0},
+            { 1,  1,  1,  1,  1,  1,  1,  1},
+            { 4,  2,  3,  5,  6,  3,  2,  4}};
 
     public static int[] selection(int input[]){
         int i=input[0], j=input[1];
@@ -63,9 +63,9 @@ public class move {
     public static int isValid(int[] piecePos, int move[]){ //return 0 means invalid, 1 means valid, 2 means king was being moved into check
         int i=piecePos[0], j=piecePos[1];
         int x=move[0], y=move[1];
-    
+
         boolean valid = false;
-    
+
         //pawn//////////////////////////////////////////////////////////////////////////////////////////////////////////
         if(piece==1 && player==0){ //if white chose a pawn
             if(j==y && x==(i-1)){ //if it is being moved one space forward
@@ -113,7 +113,7 @@ public class move {
                 }
             }
         }
-    
+
         //knight////////////////////////////////////////////////////////////////////////////////////////////////////////
         if(piece==2){
             if(( (x==(i-2) || x==(i+2)) && (y==(j-1) || y==(j+1)) ) || ((x==(i-1) || x==(i+1)) && (y==(j-2) || y==(j+2)))){

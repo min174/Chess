@@ -51,7 +51,7 @@ public class Main {
                 break;
             }
 
-            
+
             input.promotion();
             view.board();
 
