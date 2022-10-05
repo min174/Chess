@@ -1,9 +1,10 @@
+package io;
 import java.util.Scanner;
+import model.*;
 
 public class input {
-    static char[] input;
-
     public static int[] boardSquare() { //takes char array and converts it to board position
+        char[] input;
         Scanner scanner = new Scanner(System.in);
 
         while(true) {
@@ -27,7 +28,7 @@ public class input {
 
     public static void promotion() {
         for(int j=0; j<8; j++) {
-            if((move.player == 0 && move.board[0][j] == 1) || (move.player == 1 && move.board[7][j] == 11)) {
+            if((game.player == 0 && game.board[0][j] == 1) || (game.player == 1 && game.board[7][j] == 11)) {
                 System.out.println("Please enter a number to promote your pawn\n1-Knight  2-Bishop  3-Rook  4-Queen");
                 Scanner scanner = new Scanner(System.in);
                 int input=0;
@@ -40,12 +41,12 @@ public class input {
                     }
                 }
                 input++;
-                if(move.player == 0) {
-                    move.board[0][j] = input;
+                if(game.player == 0) {
+                    game.board[0][j] = input;
                 }
-                if(move.player == 1) {
+                if(game.player == 1) {
                     input += 10;
-                    move.board[7][j] = input;
+                    game.board[7][j] = input;
                 }
                 return;
             }

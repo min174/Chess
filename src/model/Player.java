@@ -1,9 +1,10 @@
+package model;
 import java.util.Scanner;
 
 public class Player {
-    static String p1, p2;
+    public static String p1, p2;
 
-    void start(){
+    public void start(){
         Scanner s = new Scanner(System.in);
 
         System.out.println("Player 1 (White): ");

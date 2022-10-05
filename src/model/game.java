@@ -1,9 +1,8 @@
-import java.util.Scanner;
-
-public class move {
-    static int piece;
-    static int player;
-    static int[][] board = {{14, 12, 13, 15, 16, 13, 12, 14},
+package model;
+public class game {
+    public static int piece;
+    public static int player;
+    public static int[][] board = {{14, 12, 13, 15, 16, 13, 12, 14},
                             {11, 11, 11, 11, 11, 11, 11, 11},
                             { 0,  0,  0,  0,  0,  0,  0,  0},
                             { 0,  0,  0,  0,  0,  0,  0,  0},

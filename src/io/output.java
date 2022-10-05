@@ -1,4 +1,6 @@
-public class view {
+package io;
+import model.*;
+public class output {
     public static void moveIntoCheck() {
         System.out.println("You cannot move your king into check");
     }
@@ -6,7 +8,7 @@ public class view {
         System.out.println("Move not valid");
     }
     public static void noPieceSelected() {
-        if(move.check(move.player) == 0) {
+        if(game.check(game.player) == 0) {
             System.out.println("No piece selected, try again");
         } else {
             System.out.println("Your king is in check, you must move it");
@@ -14,7 +16,7 @@ public class view {
     }
     public static void pieceSelected() {
         String[] pieces = {"pawn", "knight", "bishop", "rook", "queen", "king"};
-        System.out.println(pieces[move.piece-1] + " selected");
+        System.out.println(pieces[game.piece-1] + " selected");
     }
     public static void movePiece() {
         System.out.println("Move piece, or press p to pick a new piece");
@@ -44,43 +46,43 @@ public class view {
         for(i=0;i<8;i++) {
             System.out.print(8-i + "|");
             for(j=0;j<8;j++) { //board[][] array values represent chess pieces
-                if(move.board[i][j] == 0) { //if square is blank
+                if(game.board[i][j] == 0) { //if square is blank
                     System.out.print("     |");
                 }
-                if(move.board[i][j] == 1) { //white pawn
+                if(game.board[i][j] == 1) { //white pawn
                     System.out.print("  P  |");
                 }
-                if(move.board[i][j] == 11) { //black pawn
+                if(game.board[i][j] == 11) { //black pawn
                     System.out.print(" *P* |");
                 }
-                if(move.board[i][j] == 2) { //white knight
+                if(game.board[i][j] == 2) { //white knight
                     System.out.print("  N  |");
                 }
-                if(move.board[i][j] == 12) { //black knight
+                if(game.board[i][j] == 12) { //black knight
                     System.out.print(" *N* |");
                 }
-                if(move.board[i][j] == 3) { //white bishop
+                if(game.board[i][j] == 3) { //white bishop
                     System.out.print("  B  |");
                 }
-                if(move.board[i][j] == 13) { //black bishop
+                if(game.board[i][j] == 13) { //black bishop
                     System.out.print(" *B* |");
                 }
-                if(move.board[i][j] == 4) { //white rook
+                if(game.board[i][j] == 4) { //white rook
                     System.out.print("  R  |");
                 }
-                if(move.board[i][j] == 14) { //black rook
+                if(game.board[i][j] == 14) { //black rook
                     System.out.print(" *R* |");
                 }
-                if(move.board[i][j] == 5) { //white queen
+                if(game.board[i][j] == 5) { //white queen
                     System.out.print("  Q  |");
                 }
-                if(move.board[i][j] == 15) { //black queen
+                if(game.board[i][j] == 15) { //black queen
                     System.out.print(" *Q* |");
                 }
-                if(move.board[i][j] == 6) { //white king
+                if(game.board[i][j] == 6) { //white king
                     System.out.print("  K  |");
                 }
-                if(move.board[i][j] == 16) { //black king
+                if(game.board[i][j] == 16) { //black king
                     System.out.print(" *K* |");
                 }
             }
