@@ -1,47 +1,48 @@
-package main.java;
+import io.*;
+import model.*;
 
 public class Main {
-    public static void main(String[] args)
-    {
-        view.welcome();
+
+    public static void main(String[] args) {
+        output.welcome();
         Player p = new Player();
         p.start();
-        view.board();
-        move.player = 0;
+        output.board();
+        game.player = 0;
         boolean passed = false;
 
         while(true) {
-            if(move.check(move.player) == 2) { //if checkmate, end the game
-                view.checkmate(move.player);
+            if(game.check(game.player) == 2) { //if checkmate, end the game
+                output.checkmate(game.player);
                 break;
             }
 
             int[] piecePos; //co ordinates of piece
             int[] movePos; //where piece will be moved to
-            view.choosePiece(move.player);
+            output.choosePiece(game.player);
 
             while(true) {
-                piecePos = move.selection(input.boardSquare());
-                if(move.piece == 0) { //if no piece selected
-                    view.noPieceSelected();
+                piecePos = game.selection(input.boardSquare());
+                if(game.piece == 0) { //if no piece selected
+                    output.noPieceSelected();
                     continue; //try again
                 }
-                view.pieceSelected();
+                output.pieceSelected();
 
                 while(true) {
-                    view.movePiece();
+                    output.movePiece();
                     movePos = input.boardSquare();
                     if(movePos[0] == -1) { //if 'p' is entered
-                        view.choosePiece(move.player);
+                        output.choosePiece(game.player);
                         passed = true;
                         break;
                     }
-                    if(move.isValid(piecePos, movePos) == 1) { //if move is valid
+                    if(game.isValid(piecePos, movePos) == 1) { //if move is valid
                         break;
-                    } else if(move.isValid(piecePos, movePos) == 0) { //if move is invalid
-                        view.invalidMove();
+                    } else if(game.isValid(piecePos, movePos) == 0) { //if move is invalid
+                        output.invalidMove();
                     } else {
-                        view.moveIntoCheck(); //if king was being moved into check
+                        output.moveIntoCheck(); //if king was being moved into check
                     }
                 }
                 if(passed) {
@@ -51,15 +52,15 @@ public class Main {
                 break;
             }
 
-
+            
             input.promotion();
-            view.board();
+            output.board();
 
 
-            if(move.player == 0) { //swap to other player
-                move.player=1;
+            if(game.player == 0) { //swap to other player
+                game.player=1;
             } else {
-                move.player=0;
+                game.player=0;
             }
         }
     }
