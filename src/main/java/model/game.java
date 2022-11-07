@@ -1,58 +1,64 @@
 package model;
+
+import static java.lang.System.exit;
+
+
 public class game {
     public static int piece;
     public static int player;
-    public static int[][] board = {{14, 12, 13, 15, 16, 13, 12, 14},
+    public static int[][] board = {
+                            {14, 12, 13, 15, 16, 13, 12, 14},
                             {11, 11, 11, 11, 11, 11, 11, 11},
                             { 0,  0,  0,  0,  0,  0,  0,  0},
                             { 0,  0,  0,  0,  0,  0,  0,  0},
                             { 0,  0,  0,  0,  0,  0,  0,  0},
                             { 0,  0,  0,  0,  0,  0,  0,  0},
                             { 1,  1,  1,  1,  1,  1,  1,  1},
-                            { 4,  2,  3,  5,  6,  3,  2,  4}};
+                            { 4,  2,  3,  5,  6,  3,  2,  4}
+                            };
 
     public static int[] selection(int input[]){
-        int i=input[0], j=input[1];
+        int i=input[0], j=input[1]; //where the piece is placed on the board
         piece=0;
 
-        int check = check(player);
+        int check = check(player); // checkmate??
         if(check == 0) { //only lets you pick non-king piece if you are not in check
-            if(board[i][j] == 1 && player == 0) { //white pawn
-                piece=1;
+            if (board[i][j] == 1 && player == 0) { //white pawn
+                piece = 1;
             }
-            if(board[i][j] == 11 && player == 1) { //black pawn
-                piece=1;
+            if (board[i][j] == 11 && player == 1) { //black pawn
+                piece = 1;
             }
-            if(board[i][j] == 2 && player == 0) { //white knight
-                piece=2;
+            if (board[i][j] == 2 && player == 0) { //white knight
+                piece = 2;
             }
-            if(board[i][j] == 12 && player == 1) { //black knight
-                piece=2;
+            if (board[i][j] == 12 && player == 1) { //black knight
+                piece = 2;
             }
-            if(board[i][j] == 3 && player == 0) { //white bishop
-                piece=3;
+            if (board[i][j] == 3 && player == 0) { //white bishop
+                piece = 3;
             }
-            if(board[i][j] == 13 && player == 1) { //black bishop
-                piece=3;
+            if (board[i][j] == 13 && player == 1) { //black bishop
+                piece = 3;
             }
-            if(board[i][j] == 4 && player == 0) { //white rook
-                piece=4;
+            if (board[i][j] == 4 && player == 0) { //white rook
+                piece = 4;
             }
-            if(board[i][j] == 14 && player == 1) { //black rook
-                piece=4;
+            if (board[i][j] == 14 && player == 1) { //black rook
+                piece = 4;
             }
-            if(board[i][j] == 5 && player == 0) { //white queen
-                piece=5;
+            if (board[i][j] == 5 && player == 0) { //white queen
+                piece = 5;
             }
-            if(board[i][j] == 15 && player == 1) { //black queen
-                piece=5;
+            if (board[i][j] == 15 && player == 1) { //black queen
+                piece = 5;
             }
-        }
-        if(board[i][j] == 6 && player == 0) { //white king
-            piece=6;
-        }
-        if(board[i][j] == 16 && player == 1) { //black king
-            piece=6;
+            if (board[i][j] == 6 && player == 0) { //white king
+                piece = 6;
+            }
+            if (board[i][j] == 16 && player == 1) { //black king
+                piece = 6;
+            }
         }
 
         return input;
